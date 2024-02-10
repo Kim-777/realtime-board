@@ -1,10 +1,52 @@
 'use client';
 
-export const Info = () => {
+import Link from 'next/link';
+import Image from 'next/image';
+import { Menu } from 'lucide-react';
+import { useQuery } from 'convex/react';
+import { Poppins } from 'next/font/google';
+
+import { cn } from '@/lib/utils';
+import { Hint } from '@/components/hint';
+import { api } from '../../../../../convex/_generated/api';
+import { Actions } from '@/components/actions';
+import { Button } from '@/components/ui/button';
+import type { Id } from '../../../../../convex/_generated/dataModel';
+import { useRenameModal } from '@/store/use-rename-modal';
+
+interface InfoProps {
+  boardId: string;
+}
+
+const font = Poppins({
+  subsets: ['latin'],
+  weight: ['600'],
+});
+
+export const InfoSkeleton = () => {
+  return (
+    <div className='absolute top-2 left-2 bg-white rounded-md px-1.5 h-12 flex items-center shadow-md w-[300px]' />
+  );
+};
+
+const TabSeparator = () => {
+  return <div className='text-neutral-300 px-1.5'>|</div>;
+};
+
+export const Info = ({ boardId }: InfoProps) => {
+  const { onOpen } = useRenameModal();
+
+  const data = useQuery(api.board.get, {
+    id: boardId as Id<'boards'>,
+  });
+
+  if (!data) {
+    return <InfoSkeleton />;
+  }
+
   return (
     <div className='absolute top-2 left-2 bg-white rounded-md px-1.5 h-12 flex items-center shadow-md'>
-      TODO: 보드 정보
-      {/* <Hint label='Go to boards' side='bottom' sideOffset={10}>
+      <Hint label='Go to boards' side='bottom' sideOffset={10}>
         <Button asChild variant='board' className='px-2'>
           <Link href='/'>
             <Image src='/logo.svg' alt='Board logo' height={40} width={40} />
@@ -27,13 +69,7 @@ export const Info = () => {
             </Button>
           </Hint>
         </div>
-      </Actions> */}
+      </Actions>
     </div>
-  );
-};
-
-export const InfoSkeleton = () => {
-  return (
-    <div className='absolute top-2 left-2 bg-white rounded-md px-1.5 h-12 flex items-center shadow-md w-[300px]' />
   );
 };

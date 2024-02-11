@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import type { LiveList, LiveMap, LiveObject } from '@liveblocks/client';
 import { createClient } from '@liveblocks/client';
 import { createRoomContext } from '@liveblocks/react';
+
+import type { Layer } from '@/types/canvas';
 
 const client = createClient({
   throttle: 16,
@@ -12,6 +15,7 @@ const client = createClient({
 // `user.presence` property. Must be JSON-serializable.
 type Presence = {
   cursor: { x: number; y: number } | null;
+  selection: string[];
   // ...
 };
 
@@ -20,8 +24,8 @@ type Presence = {
 // LiveList, LiveMap, LiveObject instances, for which updates are
 // automatically persisted and synced to all connected clients.
 type Storage = {
-  // author: LiveObject<{ firstName: string, lastName: string }>,
-  // ...
+  layers: LiveMap<string, LiveObject<Layer>>;
+  layerIds: LiveList<string>;
 };
 
 // Optionally, UserMeta represents static/readonly metadata on each user, as

@@ -38,7 +38,7 @@ export const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) =>
   }, []);
 
   const handleContentChange = (e: ContentEditableEvent) => {
-    updateValue(e.target.value);
+    updateValue(e.target.value || '');
   };
 
   return (
@@ -53,7 +53,7 @@ export const Text = ({ layer, onPointerDown, id, selectionColor }: TextProps) =>
       }}
     >
       <ContentEditable
-        html={value || 'Text'}
+        html={typeof value === 'string' ? value : 'Text'}
         onChange={handleContentChange}
         className={cn(
           'h-full w-full flex items-center justify-center text-center drop-shadow-md outline-none',

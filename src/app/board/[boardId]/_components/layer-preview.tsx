@@ -38,10 +38,10 @@ export const LayerPreview = memo(({ id, onLayerPointerDown, selectionColor }: La
           stroke={selectionColor}
         />
       );
-    case LayerType.Note:
-      return <Note id={id} layer={layer} onPointerDown={onLayerPointerDown} selectionColor={selectionColor} />;
     case LayerType.Text:
       return <Text id={id} layer={layer} onPointerDown={onLayerPointerDown} selectionColor={selectionColor} />;
+    case LayerType.Note:
+      return <Note id={id} layer={layer} onPointerDown={onLayerPointerDown} selectionColor={selectionColor} />;
     case LayerType.Ellipse:
       return <Ellipse id={id} layer={layer} onPointerDown={onLayerPointerDown} selectionColor={selectionColor} />;
     case LayerType.Rectangle:

@@ -1,6 +1,5 @@
 'use client';
 
-import type { KeyboardEvent } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { CanvasMode } from '@/types/canvas';
 import type { Camera, CanvasState, Color, Point, LayerType, Side, XYWH } from '@/types/canvas';
